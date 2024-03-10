@@ -8,7 +8,7 @@ pipeline {
         string(name: 'ImageName', description: "name of the docker build", defaultValue: 'javapp')
         string(name: 'ImageTag', description: "tag of the docker build", defaultValue: 'v1')
         string(name: 'DockerHubUser', description: "name of the Application", defaultValue: 'testingkyaw')
-        string(name: 'JFrogURL', description: "JFrog URL", defaultValue: 'http://52.90.194.144:8082/artifactory')
+       // string(name: 'JFrogURL', description: "JFrog URL", defaultValue: 'http://52.90.194.144:8082/artifactory')
     }
 
     stages {
@@ -23,7 +23,7 @@ pipeline {
             }
         }
 
-      /*  stage('Unit Test maven') {
+        stage('Unit Test maven') {
             when {
                 expression { params.action == 'create' }
             }
@@ -33,8 +33,8 @@ pipeline {
                 }
             }
         }
-*/
-  /*      stage('Integration Test maven') {
+
+        stage('Integration Test maven') {
             when {
                 expression { params.action == 'create' }
             }
@@ -43,7 +43,7 @@ pipeline {
                     mvnIntegrationTest()
                 }
             }
-        }*/
+        }
 
         stage('Static code analysis: Sonarqube') {
             when {
@@ -65,7 +65,7 @@ pipeline {
                }
             }
         }
-        stage('Jar file Push : Jfrog ') {
+       /* stage('Jar file Push : Jfrog ') {
             when {
                 expression { params.action == 'create' }
             }
@@ -81,7 +81,7 @@ pipeline {
                     }
                 }
             }
-        }
+        }*/
 
         stage('Docker Image Build') {
             when {
