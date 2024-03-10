@@ -18,7 +18,7 @@ pipeline {
             steps {
                 git branch: "main",
                     credentialsId: 'your-credentials-id',
-                    url: "https://github.com/praveen1994dec/Java_app_3.0.git"
+                    url: "https://github.com/kyawzawaungdevops/Complete-DevOps-CI-CD-pipeline-using-GitOps-with-ArgoCD.git"
             }
         }
 
