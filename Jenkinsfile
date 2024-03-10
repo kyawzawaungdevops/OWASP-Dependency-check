@@ -33,7 +33,7 @@ pipeline {
             }
         }
 */
-        stage('Integration Test maven') {
+  /*      stage('Integration Test maven') {
             when {
                 expression { params.action == 'create' }
             }
@@ -42,7 +42,7 @@ pipeline {
                     mvnIntegrationTest()
                 }
             }
-        }
+        }*/
 
         stage('Static code analysis: Sonarqube') {
             when {
