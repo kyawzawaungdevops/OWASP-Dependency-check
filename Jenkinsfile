@@ -75,7 +75,7 @@ pipeline {
                         usernameVariable: "USER",
                         passwordVariable: "PASS"
                     )]) {
-                        sh "jfrog rt config --interactive=false --url='http://52.90.194.144:8082/artifactory' --user=$USER --password=$PASS --interactive=false"
+                        sh "jfrog rt config --interactive=false --url='https://52.90.194.144:8082/artifactory' --user=$USER --password=$PASS --interactive=false"
                         sh "jfrog rt u '/var/lib/jenkins/workspace/Jenkins-pipeline-project/target/spring-petclinic-0.0.1-SNAPSHOT.jar' 'test' --recursive=true"
                     }
                 }
