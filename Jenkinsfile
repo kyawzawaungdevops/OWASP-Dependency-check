@@ -4,11 +4,11 @@ pipeline {
     agent any
 
     parameters {
-        choice(name: 'action', choices: ['create', 'delete'], description: 'Choose create/destroy')
-        string(name: 'ImageName', description: "Name of the docker build", defaultValue: 'javapp')
-        string(name: 'ImageTag', description: "Tag of the docker build", defaultValue: 'v1')
-        string(name: 'DockerHubUser', description: "Name of the DockerHub User", defaultValue: 'testingkyaw')
-        string(name: 'JFrogURL', description: "JFrog URL", defaultValue: '.')
+        choice(name: 'action', choices: 'create\ndelete', description: 'Choose create/Destroy')
+        string(name: 'ImageName', description: "name of the docker build", defaultValue: 'javapp')
+        string(name: 'ImageTag', description: "tag of the docker build", defaultValue: 'v1')
+        string(name: 'DockerHubUser', description: "name of the Application", defaultValue: 'testingkyaw')
+        string(name: 'JFrogURL', description: "JFrogURL", defaultValue: '.')
     }
 
     stages {
@@ -52,21 +52,20 @@ pipeline {
             steps {
                 script {
                     def SonarQubecredentialsId = 'sonarqube-api'
-                    staticCodeAnalysis(SonarQubecredentialsId)
+                    statiCodeAnalysis(SonarQubecredentialsId)
                 }
             }
         }
-        stage('Maven Build : maven') {
-            when { 
-                expression { params.action == 'create' }
-            }
-            steps {
-                script {
-                    mvnBuild()
-                }
+        stage('Maven Build : maven'){
+         when { expression {  params.action == 'create' } }
+            steps{
+               script{
+                   
+                   mvnBuild()
+               }
             }
         }
-        stage('Jar file Push : Jfrog ') {
+       stage('Jar file Push : Jfrog ') {
             when {
                 expression { params.action == 'create' }
             }
@@ -77,8 +76,8 @@ pipeline {
                         usernameVariable: "USER",
                         passwordVariable: "PASS"
                     )]) {
-                        sh "jfrog rt config --url=${params.JFrogURL}/artifactory --user=$USER --password=$PASS --interactive=false"
-                        sh "jfrog rt u '/var/lib/jenkins/workspace/Spring Boot Application pipeline/target/spring-petclinic-0.0.1-SNAPSHOT.jar' 'spring-boot-app' --recursive=true"
+                        sh "jfrog rt config --interactive=false --url="${params.JFrogURL}/artifactory --user=$USER --password=$PASS"
+                        sh "jfrog rt u '/var/lib/jenkins/workspace/"Spring Boot Application pipeline"/target/spring-petclinic-0.0.1-SNAPSHOT.jar' 'spring-boot-app' --recursive=true"
                     }
                 }
             }
