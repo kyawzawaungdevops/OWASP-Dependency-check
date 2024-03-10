@@ -77,7 +77,8 @@ pipeline {
                         passwordVariable: "PASS"
                     )]) {
                         sh "jfrog rt config --interactive=false --url=${params.JFrogURL}/artifactory --user=$USER --password=$PASS"
-                        sh "jfrog rt u '/var/lib/jenkins/workspace/"Spring Boot Application pipeline"/target/spring-petclinic-0.0.1-SNAPSHOT.jar' 'spring-boot-app' --recursive=true"
+                        //sh "jfrog rt u '/var/lib/jenkins/workspace/"Spring Boot Application pipeline"/target/spring-petclinic-0.0.1-SNAPSHOT.jar' 'spring-boot-app' --recursive=true"
+                        sh "jfrog rt u '/var/lib/jenkins/workspace/Spring Boot Application pipeline/target/spring-petclinic-0.0.1-SNAPSHOT.jar' 'spring-boot-app' --recursive=true"
                     }
                 }
             }
