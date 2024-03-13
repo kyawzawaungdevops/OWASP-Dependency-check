@@ -1,0 +1,41 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+   name: webapp-deployment
+   namespace: app
+spec:
+   replicas: 2
+   selector:     
+      matchLabels:
+         app: webapp-deployment
+   template:
+      metadata:
+         labels:
+            app: webapp-deployment
+      spec:
+         containers:
+            - name: webapp-deployment
+              image: testingkyaw/springbootapp:latest
+              imagePullPolicy: Always
+              resources:
+                 requests:
+                   memory: "64Mi"
+                   cpu: "250m"
+              env:
+              - name: MYSQL_PASS
+                valueFrom:
+                  secretKeyRef:
+                    name: mysql-pass
+                    key: password
+              - name: MYSQL_URL
+                valueFrom:
+                  configMapKeyRef:
+                     name: database-data           
+                     key: databaseurl
+              - name: MYSQL_USER         
+                valueFrom:
+                  configMapKeyRef:
+                     name: database-data           
+                     key: user
+              ports:
+               - containerPort: 8080
