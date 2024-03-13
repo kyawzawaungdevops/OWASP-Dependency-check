@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: database-data
+  namespace: database
+data:
+  user: "petclinic-user"
+  databaseurl: "jdbc:mysql://petclinic-mysql-service.database.svc.cluster.local:3306/petclinic-database"
